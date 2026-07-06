@@ -628,11 +628,14 @@
 
   function bookNow() {
     const btn = document.getElementById('bookBtn');
+    const pkg = PACKAGES.find(p => p.id === selectedPkg);
+    if (!pkg) return;
+    const price = memberPrice(calcPrice(pkg, currentSqft));
     btn.classList.add('bouncing');
     btn.addEventListener('animationend', () => {
       btn.classList.remove('bouncing');
-      // In production: navigate to calendar
-      alert('Prototype: would navigate to booking calendar.');
+      const url = '/Suds-calculator-/calendar.html?pkg=' + encodeURIComponent(pkg.name) + '&price=' + encodeURIComponent(price);
+      window.location.href = url;
     }, { once: true });
   }
 
